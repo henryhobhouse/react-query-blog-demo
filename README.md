@@ -1,6 +1,6 @@
 ## What is this?
 
-It's an example repo that show show to go from a simple hook-based application to React Query, avoiding all of the "global state" madness that normally happens!
+It's an example repo, forked from [react queries repo](https://github.com/tannerlinsley/react-query-blog-demo) and updated to fit the purpose of a workshop, that gives stepping stone exercises to go from a simple hook-based application to React Query, avoiding all of the "global state" madness that normally happens!
 
 - The `main` branch contains the initial code we started with
 - There are a number of branches that show example implementations for each exercise to review.
@@ -24,6 +24,6 @@ It's an example repo that show show to go from a simple hook-based application t
 - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 - **NOTE:** The "database" used in this app is simply a JSON file and thus will not work as a deployed application. That said, you are more than welcome to hook it up to a real API if you want!
 
-## Why Next.js?
+## Why Next.js (from the author of React Query but I mostly agree with him!)?
 
 [Read This 😁](https://gist.github.com/tannerlinsley/65ac1f0175d79d19762cf06650707830)
