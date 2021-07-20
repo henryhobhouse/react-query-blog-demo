@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NextApiRequest, NextApiResponse } from 'next';
 import db from '../../../db';
 import { Post } from '../../../src/api/types';
 import { sleep } from '../../../utils';
 
 const deleteFailureRate = 0;
 
-async function GET(req: any, res: any) {
+async function GET(req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { postId },
   } = req;
@@ -19,7 +19,7 @@ async function GET(req: any, res: any) {
   res.json(row);
 }
 
-async function PATCH(req: any, res: any) {
+async function PATCH(req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { postId },
     body,
@@ -53,7 +53,7 @@ async function PATCH(req: any, res: any) {
   res.json(newRow);
 }
 
-async function DELETE(req: any, res: any) {
+async function DELETE(req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { postId },
   } = req;
@@ -80,7 +80,10 @@ async function DELETE(req: any, res: any) {
   res.send('Resource Deleted');
 }
 
-export default async function PostApi(req: any, res: any) {
+export default async function PostApi(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   await sleep(1000);
 
   try {

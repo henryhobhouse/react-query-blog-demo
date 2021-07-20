@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NextApiRequest, NextApiResponse } from 'next';
 import shortid from 'shortid';
 import db from '../../../db';
 import { Post } from '../../../src/api/types';
@@ -7,7 +7,13 @@ import { sleep } from '../../../utils';
 // allows you to simulate flakey API's
 const failureRate = 0;
 
-async function GET(req: any, res: any) {
+async function GET(req: NextApiRequest, res: NextApiResponse) {
+  if (Math.random() < failureRate) {
+    res.status(500);
+    res.json({ message: 'An unknown error occurred!' });
+    return;
+  }
+
   const {
     query: { pageOffset, pageSize },
   } = req;
@@ -31,9 +37,8 @@ async function GET(req: any, res: any) {
   res.json(posts);
 }
 
-async function POST(req: any, res: any) {
+async function POST(req: NextApiRequest, res: NextApiResponse) {
   if (Math.random() < failureRate) {
-    res.json();
     res.status(500);
     res.json({ message: 'An unknown error occurred!' });
     return;
@@ -55,7 +60,10 @@ async function POST(req: any, res: any) {
   res.json(row);
 }
 
-export default async function PostsApi(req: any, res: any) {
+export default async function PostsApi(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   await sleep(1000);
 
   try {
