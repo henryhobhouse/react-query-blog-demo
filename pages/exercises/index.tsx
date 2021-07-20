@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React, { FC } from 'react';
+import { Post } from '../../src/api/types';
 import { Layout } from '../../src/components/layout';
 import { Loader, PostStyles } from '../../src/components/styled';
 import usePosts from '../../src/hooks/usePosts';
@@ -27,7 +28,7 @@ const ExercisePosts: FC = () => {
           {postsQuery.isError && postsQuery.error.message}
           {!postsQuery.isLoading &&
             postsQuery.isSuccess &&
-            postsQuery.data.map((post) => (
+            postsQuery.data.map((post: Post) => (
               <Link
                 href={{
                   pathname: `/exercises/[postId]`,

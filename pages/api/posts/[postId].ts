@@ -1,14 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import db from '../../../db';
+import { Post } from '../../../src/api/types';
 import { sleep } from '../../../utils';
 
 const deleteFailureRate = 0;
 
-async function GET(req, res) {
+async function GET(req: any, res: any) {
   const {
     query: { postId },
   } = req;
 
-  const row = (await db.get()).posts.find((d) => d.id == postId);
+  const row = (await db.get()).posts.find((d: Post) => d.id == postId);
   if (!row) {
     res.status(404);
     return res.send('Not found');
@@ -17,7 +19,7 @@ async function GET(req, res) {
   res.json(row);
 }
 
-async function PATCH(req, res) {
+async function PATCH(req: any, res: any) {
   const {
     query: { postId },
     body,
@@ -51,7 +53,7 @@ async function PATCH(req, res) {
   res.json(newRow);
 }
 
-async function DELETE(req, res) {
+async function DELETE(req: any, res: any) {
   const {
     query: { postId },
   } = req;
@@ -78,7 +80,7 @@ async function DELETE(req, res) {
   res.send('Resource Deleted');
 }
 
-export default async function PostApi(req, res) {
+export default async function PostApi(req: any, res: any) {
   await sleep(1000);
 
   try {

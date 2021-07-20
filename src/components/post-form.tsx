@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, FormEvent } from 'react';
 import { Loader } from './styled';
 
 const defaultFormValues = {
@@ -28,10 +28,10 @@ export const PostForm: FC<Props> = ({
 }) => {
   const [values, setValues] = React.useState<FormValues>(initialValues);
 
-  const setValue = (field, value) =>
+  const setValue = (field: string, value: string) =>
     setValues((old) => ({ ...old, [field]: value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     if (clearOnSubmit) {
       setValues(defaultFormValues);
     }

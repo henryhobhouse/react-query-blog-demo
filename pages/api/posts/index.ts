@@ -1,18 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import shortid from 'shortid';
 import db from '../../../db';
+import { Post } from '../../../src/api/types';
 import { sleep } from '../../../utils';
 
 // allows you to simulate flakey API's
 const failureRate = 0;
 
-async function GET(req, res) {
+async function GET(req: any, res: any) {
   const {
     query: { pageOffset, pageSize },
   } = req;
 
-  const posts = (await db.get()).posts.map((d) => ({
-    ...d,
-    body: d.body.substring(0, 50) + (d.body.length > 50 ? '...' : ''), // Don't return full body in list calls
+  const posts = (await db.get()).posts.map((post: Post) => ({
+    ...post,
+    body: post.body.substring(0, 50) + (post.body.length > 50 ? '...' : ''), // Don't return full body in list calls
   }));
 
   if (Number(pageSize)) {
@@ -29,8 +31,9 @@ async function GET(req, res) {
   res.json(posts);
 }
 
-async function POST(req, res) {
+async function POST(req: any, res: any) {
   if (Math.random() < failureRate) {
+    res.json();
     res.status(500);
     res.json({ message: 'An unknown error occurred!' });
     return;
@@ -41,15 +44,18 @@ async function POST(req, res) {
     ...req.body,
   };
 
-  await db.set((old) => ({
-    ...old,
-    posts: [...old.posts, row],
-  }));
+  await db.set((old) => {
+    if (!Array.isArray(old.posts)) return old;
+    return {
+      ...old,
+      posts: [...old.posts, row],
+    };
+  });
 
   res.json(row);
 }
 
-export default async function PostsApi(req, res) {
+export default async function PostsApi(req: any, res: any) {
   await sleep(1000);
 
   try {
