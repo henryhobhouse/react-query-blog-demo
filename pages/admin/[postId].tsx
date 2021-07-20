@@ -10,8 +10,8 @@ import { PostForm, PostFormState } from '../../src/components/post-form';
 
 const AdminPost: FC = () => {
   const { query, push } = useRouter();
-
-  const postQuery = usePost(query.postId);
+  const postId = Array.isArray(query.postId) ? query.postId[0] : query.postId;
+  const postQuery = usePost(postId ?? '');
   const [savePost, savePostInfo] = useSavePost();
   const [deletePost, deletePostInfo] = useDeletePost();
 

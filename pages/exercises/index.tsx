@@ -8,7 +8,7 @@ import usePosts from '../../src/hooks/usePosts';
 const ExercisePosts: FC = () => {
   const postsQuery = usePosts();
 
-  if (postsQuery.isError) return <Layout>{postsQuery.error as string}</Layout>;
+  if (postsQuery.isError) return <Layout>{postsQuery.error.message}</Layout>;
 
   return (
     <Layout>

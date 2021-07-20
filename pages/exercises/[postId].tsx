@@ -7,9 +7,10 @@ import { Loader } from '../../src/components/styled';
 
 const Post: FC = () => {
   const { query } = useRouter();
-  const postQuery = usePost(query.postId);
+  const postId = Array.isArray(query.postId) ? query.postId[0] : query.postId;
+  const postQuery = usePost(postId ?? '');
 
-  if (postQuery.isError) return <Layout>{postQuery.error as string}</Layout>;
+  if (postQuery.isError) return <Layout>{postQuery.error.message}</Layout>;
 
   return (
     <Layout>
