@@ -30,7 +30,7 @@ const ExercisePosts: FC = () => {
             postsQuery.data.map((post) => (
               <Link
                 href={{
-                  pathname: `/posts/[postId]`,
+                  pathname: `/exercises/[postId]`,
                   query: { postId: post.id },
                 }}
                 key={post.id}

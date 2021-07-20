@@ -54,7 +54,7 @@ const AdminPost: FC = () => {
           <p>
             <Link
               href={{
-                pathname: `/posts/[postId]`,
+                pathname: `/exercises/[postId]`,
                 query: { postId: postQuery.data.id },
               }}
             >
