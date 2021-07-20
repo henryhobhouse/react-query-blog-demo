@@ -21,7 +21,7 @@ const Post: FC = () => {
       {postQuery.isSuccess && !postQuery.isLoading && (
         <div>
           <h2>{postQuery.data.title}</h2>
-          <p>{postQuery.data.body}</p>
+          <p dangerouslySetInnerHTML={{ __html: postQuery.data.body }} />
         </div>
       )}
     </Layout>

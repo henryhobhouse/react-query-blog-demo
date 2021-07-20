@@ -38,7 +38,7 @@ const ExercisePosts: FC = () => {
               >
                 <PostStyles>
                   <h3>{post.title}</h3>
-                  <p>{post.body}</p>
+                  <p dangerouslySetInnerHTML={{ __html: post.body }} />
                 </PostStyles>
               </Link>
             ))}

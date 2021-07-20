@@ -1,43 +1,54 @@
 {
   "posts": [
     {
-      "userId": 1,
-      "id": 1,
-      "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-      "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-    },
-    {
-      "userId": 1,
-      "id": 2,
-      "title": "qui est esse",
-      "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
-    },
-    {
-      "userId": 1,
-      "id": 4,
-      "title": "eum et est occaecati",
-      "body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
-    },
-    {
-      "userId": 1,
-      "id": 5,
-      "title": "nesciunt quas odio",
-      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque"
-    },
-    {
       "id": "j4t4H2CjI",
-      "title": "hiya ",
-      "body": "its me huxley hello"
+      "title": "Exercise 1 - Fetching Data!",
+      "body": "<p>Oh no. Our pages look like a fairground ride. Horrid little spinners everywhere. We best do something about this out otherwise we will get accused of behaving like an enterprise app starting with T and finishing with O...<p>\n\n<p>Let's try and sort this out and use React query to wrap our requests so that they automagically cache and loading becomes a thing of the past (OHHHhh the joy) when we browse the app. You can refer to the documentation on how you can do this <a title='here'>https://react-query.tanstack.com/guides/queries</a>\n\n<h4>Goals of the exercise:</h4>\n<p><ul><li>Update the two queries we make to get a post/s to use useQuery</li></ul></p>\n\n<h4>NOTE</h4>\n<p>Read the readme to know how to run the application locally.</p>\n\n<p>We have already configured the <a href=\"https://react-query.tanstack.com/reference/QueryClientProvider#_top\">react query provider</a> at the root of the app (in the _app page) already. You will only need to consider adding the queries themselves to complete this exercise</p>\n\n<h4>Hot tip</h4>\n<p>Look for the React Query logo at the bottom left of the screen when you run to test the app. Clicking it will run show the react query dev tools to help debug issues</p>"
     },
     {
-      "id": "zTYBn_TvF",
-      "title": "new name",
-      "body": "ergherh"
+      "id": "zTYBn_TvB",
+      "title": "Exercise 2 - Typescript/Types",
+      "body": "<p>Types are cooler than Elvis Presley. They allow us to understand the model of what we expect returned from a request. If implemented correctly they should also warn us not to expect that data should always be returned. This makes using the returned data easier and safer.</p>\n\n<p>You can read about how React Query incorporates typescript <a href=\"https://react-query.tanstack.com/typescript\">here</a></p>\n\n<h4>Goals of the exercise:</h4>\n<p><ul><li>Update the two queries we've just converted to use React Query to return the correct types (you will need to determine and write the interfaces/types for these)</li></ul></p>"
     },
     {
       "id": "x3D4EbyEQ",
-      "title": "capybaras are cool",
-      "body": "so cool"
+      "title": "Exercise 3 - Data mutation!",
+      "body": "<p>Oh no. Our pages look like a fairground ride... oh wait nope. This is now fixed. HOWEVER we are still making REST requests that are not handled by React Query. We need to move these over the use the <a href=\"https://react-query.tanstack.com/guides/mutations\">useMutation API</a></p><p>Although it doesn't give us any immediate benefit it will allow us get some performance wins later on...</p><h4>Goals of the exercise:</h4><p><ul><li>Update the save/update and delete requests to use useMutation</li></ul></p>"
+    },
+    {
+      "id": "i3D4ertEQ",
+      "title": "Exercise 4 - Handling related data",
+      "body": "<p>When we mutate data that is in a relationship with a data structure that is returned in another request, we need to handle this so that the related data is also kept valid. A perfect example of this is if we update an item in a list. We need to ensure the data within said list is also updated at the same time so the user is not shown the correct item independently but an older version when shown in a list. React Query can handle this by switching so you can manually make a request using the <a href \"https://react-query.tanstack.com/reference/useQuery#:~:text=throw%20an%20error.-,enabled%3A%20boolean,-Set%20this%20to\">query enabled option</a></p><p>You might have noticed that when we currently update a post, when we review the list the post that is updated is still showing the old data. This isn't good!!</p><h4>Goals of the exercise:</h4><p><ul><li>Update the save, create and delete mutations so that the posts query is re-fetched to ensure the latest information is shown when we view a page listing all posts.</li></ul></p>"
+    },
+    {
+      "id": "x3__ertEQ",
+      "title": "Exercise 5 - Handling related data V2",
+      "body": "<p>Previously we setup a scenario whereby we re-fetched related data on change to a overlapping data structure. This solution is a janky mess though. You're making more spinners not less. Wouldn't this be nice if it happened in the background... React Query handles this with <a href \"https://react-query.tanstack.com/guides/query-invalidation\">query invalidation</a></p>\n\n<h4>Goals of the exercise:</h4>\n<p><ul><li>Update the save, create and delete mutations so that the posts query is invalidated and the latest information is shown when we view a page listing all posts. This should happen without loading spinners everywhere!</li></ul></p>"
+    },
+    {
+      "id": "_lEvSdNzJ",
+      "title": "Exercise 6 - Data mutation V2",
+      "body": "<p>So far we have the app in a pretty good place. We've got all requests cached which has already made a big difference in spinneragedon for the user and we've ensured that related data is updated gracefully ensuring the user is never seeing stale state... but is it enough?</p>\n\n<p>The only answer to that is if you still live in the naughties and think Coldplay is the best thing since the Beatles. That or you genuinely think that Italy could win the Euro's in 2021. What madness.</p>\n\n<p>To therefore level-up our app even further we want instant updates data on mutations. Our assumption is that mutations will work the vast majority of the time so why not just treat that as the case and handle errors only as and when they happen.</p> \n\n<p>Well there might not be an app for that but there is a configuration in React Query: <a href=\"https://react-query.tanstack.com/guides/optimistic-updates\">optimistic response</a></p>\n\n<h4>Goals of the exercise:</h4><p><ul><li>Update the save, create and delete mutations so that we optimistically update the posts immediately. This will be clearest when we create a post and the post list above should populate instantly with no loader.</li></ul></p>"
+    },
+    {
+      "id": "guRJW2HP8",
+      "title": "Exercise 7 - Predictive query fetching...",
+      "body": "<p>Look carefully at your palm. You eye-sight narrows, your breath gets deeper, clarity enters your mind... you still can't predict the future though as that's batsh*t crazy to think possible!<p>\n\n<p>BUTTTTT like the best magic, the trick to make appear that you have. Lets trick the user. On hover over a link to go to a post, lets fetch the data automatically, then PUFF, the user magically thinks we predicted what they were going to do when they click through and find the data already waiting for them wondering why it took you so long.</p>\n\n<p>Luckily there's an <a href \"https://react-query.tanstack.com/reference/QueryClient#queryclientprefetchquery\">API for that</a>...</p>\n\n<h4>Goals of the exercise:</h4><p><ul><li>Use your newly acquired magic skills to have posts to be requested on hover over the relevant link from within a page showing a list of posts.</li></ul></p>"
+    },
+    {
+      "id": "dpVWBDOuJ",
+      "title": "Exercise 8 - Pre-populating queries",
+      "body": "<p>We've just come from predicting the future and now we are going populate that with the past. Still with me. Good, let's get going.</p>\n\n\n<p>Previously we were attempting to determine if a user wants to see a post and requesting the data before they actually click through to the page. However we've already got the data so why even do that, just a few seconds before that we've fetched all posts which almost certainly contains the data we want already</p>\n\n<p>React Query has got that covered and allows us to populate initial data for any query. Not only that we can use the cache including completely separate queries. <a href=\\\"https://react-query.tanstack.com/guides/initial-query-data#using-initialdata-to-prepopulate-a-query\\\">Details here</a>.\n\n<h4>Goals of the exercise:</h4><p><ul><li>Use the cache from the posts request to populate the initial data for an individual post of the data is already present.</li></ul></p>"
+    },
+    {
+      "id": "Td96yVj1A",
+      "title": "Exercise 9 - Refetch loading",
+      "body": "<p>We've now got a situation where the app is very performant and server state is seamlessly retrieved and updated. We are, however, also fetching stale data in the background of which might confuse a user if they don't realise why the rendered state just updates itself for no reason.</p>\n\n<p>To handle this situation we can use less intrusive UI to indicate that state is possibly going to change or prevent use actions until it does. We can use the `isFetching` state returned from both the query and a standalone hook from the library to do this. Details <a href=\\\"https://react-query.tanstack.com/guides/background-fetching-indicators\\\">here</a></p>\n\n<h4>Goals of the exercise:</h4><p><ul><li>Disable links to posts when posts data is re-fetching.</li><li>Show a non blocking loader globally on any re-fetching happening in the app</li></ul></p>"
+    },
+    {
+      "id": "UElPIwjAQ",
+      "title": "Exercise 10 - To Load or not too load...",
+      "body": "<p>Everyone loves Shakespeare. Romeo and Juliet is my favourite. Star crossed lovers and all that. It's pretty, if you REALLY think about it, much the same for cache and browser reloads. The sadness that they should never realise their true love breaks my little developer heart.</p>\n\n<p>Luckily we love ending which doesn't result in loss of life and React Query has kindly given us the <a href=\\\"https://react-query.tanstack.com/reference/hydration/dehydrate\\\">tooling to facilitate that</a>.</p>\n\n<h4>Goals of the exercise:</h4><p><ul><li>Use React Queries hydrate and dehydrate functionality to store a version of the cache in local storage. Kindle your romantic side by doing a refresh and not seeing a single loader. You may now rejoice as the workshop is done and the stars are now aligned</li></ul></p>\n\n<p>Now to discuss your findings with your team and determine what patterns you think are good to use in your code base</p>"
     }
   ]
 }

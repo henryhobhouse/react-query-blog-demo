@@ -2,8 +2,8 @@ import React from 'react';
 import App from 'next/app';
 import { createGlobalStyle } from 'styled-components';
 import normalize from 'styled-normalize';
-
-//
+import { QueryClientProvider, QueryClient } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 const GlobalStyles = createGlobalStyle`
   ${normalize};
@@ -35,16 +35,23 @@ const GlobalStyles = createGlobalStyle`
     :visited { text-decoration: none; }
     :link { text-decoration: none; }
   }
+
+  p {
+    margin-bottom: 1rem;
+  }
 `;
+
+const queryClient = new QueryClient();
 
 export default class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyles />
         <Component {...pageProps} />
-      </>
+      </QueryClientProvider>
     );
   }
 }

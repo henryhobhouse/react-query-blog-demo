@@ -23,8 +23,6 @@ const Admin: FC = () => {
     return 'Create Post';
   };
 
-  console.log(postsQuery);
-
   return (
     <Layout>
       <section>

@@ -10,7 +10,7 @@ export default function useSavePost() {
   const mutate = React.useCallback(async (values) => {
     setState({ isLoading: true });
     try {
-      const data = await updatePostById(values);
+      const { data } = await updatePostById(values);
       setState({ isSuccess: true, data });
     } catch (error) {
       setState({ isError: true, error });
