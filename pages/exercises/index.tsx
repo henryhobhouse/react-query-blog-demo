@@ -8,7 +8,7 @@ import usePosts from '../../src/hooks/usePosts';
 const ExercisePosts: FC = () => {
   const postsQuery = usePosts();
 
-  if (postsQuery.isError) return <Layout>{postsQuery.error}</Layout>;
+  if (postsQuery.isError) return <Layout>{postsQuery.error as string}</Layout>;
 
   return (
     <Layout>
@@ -27,7 +27,6 @@ const ExercisePosts: FC = () => {
               <Loader /> Loading...
             </span>
           )}
-          {postsQuery.isError && postsQuery.error}
           {!postsQuery.isLoading &&
             postsQuery.isSuccess &&
             postsQuery.data.map((post: Post) => (
