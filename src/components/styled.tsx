@@ -1,7 +1,5 @@
-import React, { FC } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { ImSpinner2 } from 'react-icons/im';
-import { IconBaseProps } from 'react-icons';
 
 export const Wrapper = styled.div`
   display: flex;
