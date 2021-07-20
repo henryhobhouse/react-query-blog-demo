@@ -13,7 +13,7 @@ const Admin: FC = () => {
 
   const onSubmit = async (values: PostFormState) => {
     await createPost(values);
-    postsQuery.fetch();
+    postsQuery.refetch();
   };
 
   const getSubmitText = () => {

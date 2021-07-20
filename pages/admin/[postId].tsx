@@ -17,7 +17,7 @@ const AdminPost: FC = () => {
 
   const onSubmit = async (values: PostFormState) => {
     await savePost(values);
-    postQuery.fetch();
+    postQuery.refetch();
   };
 
   const getSubmitButtonText = () => {

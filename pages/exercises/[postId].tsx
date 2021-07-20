@@ -9,7 +9,7 @@ const Post: FC = () => {
   const { query } = useRouter();
   const postQuery = usePost(query.postId);
 
-  if (postQuery.isError) return <Layout>{postQuery.error.message}</Layout>;
+  if (postQuery.isError) return <Layout>{postQuery.error}</Layout>;
 
   return (
     <Layout>
