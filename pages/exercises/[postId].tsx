@@ -5,9 +5,9 @@ import { Layout } from '../../src/components/layout';
 import usePost from '../../src/hooks/usePost';
 import { Loader } from '../../src/components/styled';
 
-const Post: FC<{ postId?: string }> = () => {
+const Post: FC = () => {
   const { query } = useRouter();
-  const postQuery = usePost(query.postId);
+  const postQuery = usePost(query['post-id']);
 
   if (postQuery.isError) return <Layout>{postQuery.error.message}</Layout>;
 
@@ -29,10 +29,3 @@ const Post: FC<{ postId?: string }> = () => {
 };
 
 export default Post;
-
-
-export async function getServerSideProps(context) {
-    return {
-      props: {postId: context.params.postId}, // will be passed to the page component as props
-    };
-  }
