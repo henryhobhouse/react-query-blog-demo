@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import { getAllPosts } from '../api/posts';
 
 export default function usePosts() {
   const [state, setState] = React.useReducer((_, action) => action, {
@@ -9,7 +9,7 @@ export default function usePosts() {
   const fetch = async () => {
     setState({ isLoading: true });
     try {
-      const data = await axios.get('/api/posts').then((res) => res.data);
+      const { data } = await getAllPosts();
       setState({ isSuccess: true, data });
     } catch (error) {
       setState({ isError: true, error });

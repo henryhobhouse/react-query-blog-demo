@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { updatePostById } from '../api/posts';
 
 export default function useSavePost() {
   const [state, setState] = React.useReducer((_, action) => action, {
@@ -9,9 +10,7 @@ export default function useSavePost() {
   const mutate = React.useCallback(async (values) => {
     setState({ isLoading: true });
     try {
-      const data = await axios
-        .patch(`/api/posts/${values.id}`, values)
-        .then((res) => res.data);
+      const data = await updatePostById(values);
       setState({ isSuccess: true, data });
     } catch (error) {
       setState({ isError: true, error });
