@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Post } from './types';
 
-export const updateAllPosts = async (allPosts: Post[]) =>
-  axios.post('/api/posts', allPosts);
+export const createNewPost = async (newPost: Omit<Post, 'id'>) =>
+  axios.post('/api/posts', newPost);
 
 export const getPostById = async (postId: string) =>
   axios.get(`/api/posts/${postId}`);
