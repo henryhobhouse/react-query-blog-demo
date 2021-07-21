@@ -41,7 +41,7 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export default class MyApp extends App {
   render() {

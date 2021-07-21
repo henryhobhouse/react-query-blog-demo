@@ -88,13 +88,13 @@ export default async function PostApi(
 
   try {
     if (req.method === 'GET') {
-      return await GET(req, res);
+      return GET(req, res);
     }
     if (req.method === 'PATCH') {
-      return await PATCH(req, res);
+      return PATCH(req, res);
     }
     if (req.method === 'DELETE') {
-      return await DELETE(req, res);
+      return DELETE(req, res);
     }
   } catch (err) {
     // eslint-disable-next-line no-console

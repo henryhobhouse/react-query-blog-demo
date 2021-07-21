@@ -11,7 +11,7 @@ interface DbContent {
 async function set(updater: (db: DbContent) => void) {
   const file = await fs.readJSON(storeLocation);
   const newFile = updater(file);
-  await fs.writeJSON(storeLocation, newFile, { spaces: 2 });
+  return fs.writeJSON(storeLocation, newFile, { spaces: 2 });
 }
 
 function get(): Promise<DbContent> {

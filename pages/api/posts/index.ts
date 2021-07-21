@@ -65,10 +65,10 @@ export default async function PostsApi(
 
   try {
     if (req.method === 'GET') {
-      return await GET(req, res);
+      return GET(req, res);
     }
     if (req.method === 'POST') {
-      await POST(req, res);
+      return POST(req, res);
     }
   } catch (err) {
     // eslint-disable-next-line no-console
