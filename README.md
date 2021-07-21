@@ -8,6 +8,8 @@ It's an example repo, forked from [react queries repo](https://github.com/tanner
 
 ## Exercises
 
+To start simply run the application locally and follow the instructions on the home page. You will be directed to complete exercises that cover the below:
+
 - Convert the custom hooks used to fetch data to use `useQuery`
 - Implement per-screen background fetching indicators
 - Convert the custom hooks used to create/update/delete to use `useMutation`
