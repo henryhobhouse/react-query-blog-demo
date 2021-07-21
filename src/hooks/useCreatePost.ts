@@ -5,15 +5,28 @@ import { createNewPost } from '../api/posts';
 import { Post } from '../api/types';
 
 export default function useCreatePost() {
-  return useMutation<Post, Error, Omit<Post, 'id'>, { previousPosts: Post[] }>(
+  return useMutation<Post, Error, Omit<Post, 'id'>>(
     (newPost) => createNewPost(newPost),
     {
-      onSuccess: async (newPostWithId) => {
+      onMutate: async (newPostWithoutId) => {
+        // Cancel any outgoing re-fetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries('posts');
+
+        // Snapshot the previous value
+        const previousPosts = queryClient.getQueryData<Post[]>('posts');
+
         // add the newly created post to the posts list in the cache
         queryClient.setQueryData<Post[]>('posts', (oldPosts) => [
           ...(oldPosts ?? []),
-          newPostWithId,
+          { id: Date.now().toString(), isPreview: true, ...newPostWithoutId },
         ]);
+
+        return { previousPosts };
+      },
+      onError: (_err, _newPost, context: any) => {
+        if (context?.previousPosts) {
+          queryClient.setQueryData<Post[]>('posts', context.previousPosts);
+        }
       },
       onSettled: () => {
         // Always refetch after error or success. In this case important as the ID of the new post in the cache will be incorrect
