@@ -1,20 +1,20 @@
 import React, { FC, FormEvent } from 'react';
+import { Post } from '../api/types';
 import { Loader } from './styled';
 
-const defaultFormValues = {
+const defaultFormValues: PostFormState = {
   title: '',
   body: '',
 };
 
-interface FormValues {
-  title: string;
-  body: string;
-}
+type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
+export type PostFormState = PartialBy<Post, 'id'>;
 
 interface Props {
-  onSubmit: (formValue: FormValues) => void;
+  onSubmit: (values: PostFormState) => Promise<void>;
   loading: boolean;
-  initialValues?: FormValues;
+  initialValues?: PostFormState;
   submitText: string;
   clearOnSubmit?: boolean;
 }
@@ -26,7 +26,7 @@ export const PostForm: FC<Props> = ({
   submitText,
   clearOnSubmit,
 }) => {
-  const [values, setValues] = React.useState<FormValues>(initialValues);
+  const [values, setValues] = React.useState<PostFormState>(initialValues);
 
   const setValue = (field: string, value: string) =>
     setValues((old) => ({ ...old, [field]: value }));

@@ -6,8 +6,7 @@ import usePost from '../../src/hooks/usePost';
 import useSavePost from '../../src/hooks/useSavePost';
 import useDeletePost from '../../src/hooks/useDeletePost';
 import { Loader } from '../../src/components/styled';
-import { PostForm } from '../../src/components/post-form';
-import { Post } from '../../src/api/types';
+import { PostForm, PostFormState } from '../../src/components/post-form';
 
 const AdminPost: FC = () => {
   const { query, push } = useRouter();
@@ -16,7 +15,7 @@ const AdminPost: FC = () => {
   const [savePost, savePostInfo] = useSavePost();
   const [deletePost, deletePostInfo] = useDeletePost();
 
-  const onSubmit = async (values: Omit<Post, 'id'>) => {
+  const onSubmit = async (values: PostFormState) => {
     await savePost(values);
     postQuery.fetch();
   };

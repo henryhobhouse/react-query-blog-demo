@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 import { Layout } from '../../src/components/layout';
 import { Loader } from '../../src/components/styled';
-import { PostForm } from '../../src/components/post-form';
+import { PostForm, PostFormState } from '../../src/components/post-form';
 import usePosts from '../../src/hooks/usePosts';
 import useCreatePost from '../../src/hooks/useCreatePost';
 import { Post } from '../../src/api/types';
@@ -11,7 +11,7 @@ const Admin: FC = () => {
   const postsQuery = usePosts();
   const [createPost, createPostInfo] = useCreatePost();
 
-  const onSubmit = async (values: Omit<Post, 'id'>) => {
+  const onSubmit = async (values: PostFormState) => {
     await createPost(values);
     postsQuery.fetch();
   };
