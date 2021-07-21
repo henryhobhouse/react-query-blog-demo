@@ -9,7 +9,7 @@ import { Post } from '../../src/api/types';
 
 const Admin: FC = () => {
   const postsQuery = usePosts();
-  const [createPost, createPostInfo] = useCreatePost();
+  const { isError, isSuccess, isLoading, mutate: createPost } = useCreatePost();
 
   const onSubmit = async (values: PostFormState) => {
     await createPost(values);
@@ -17,9 +17,9 @@ const Admin: FC = () => {
   };
 
   const getSubmitText = () => {
-    if (createPostInfo.isLoading) return 'Saving...';
-    if (createPostInfo.isError) return 'Error!';
-    if (createPostInfo.isSuccess) return 'Saved!';
+    if (isLoading) return 'Saving...';
+    if (isError) return 'Error!';
+    if (isSuccess) return 'Saved!';
 
     return 'Create Post';
   };
@@ -59,7 +59,7 @@ const Admin: FC = () => {
           <h3>Create New Post</h3>
           <div>
             <PostForm
-              loading={createPostInfo.isLoading}
+              loading={isLoading}
               onSubmit={onSubmit}
               clearOnSubmit
               submitText={getSubmitText()}

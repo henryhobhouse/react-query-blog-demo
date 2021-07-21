@@ -4,11 +4,12 @@ import { useRouter } from 'next/router';
 import { Layout } from '../../src/components/layout';
 import usePost from '../../src/hooks/usePost';
 import { Loader } from '../../src/components/styled';
+import { getFirstInstanceOfQuery } from '../../src/utils/url-query';
 
 const Post: FC = () => {
   const { query } = useRouter();
-  const postId = Array.isArray(query.postId) ? query.postId[0] : query.postId;
-  const postQuery = usePost(postId ?? '');
+  const postId = getFirstInstanceOfQuery(query.postId);
+  const postQuery = usePost(postId);
 
   if (postQuery.isError) return <Layout>{postQuery.error.message}</Layout>;
 

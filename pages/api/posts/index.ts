@@ -49,13 +49,10 @@ async function POST(req: NextApiRequest, res: NextApiResponse) {
     ...req.body,
   };
 
-  await db.set((old) => {
-    if (!Array.isArray(old.posts)) return old;
-    return {
-      ...old,
-      posts: [...old.posts, row],
-    };
-  });
+  await db.set((old) => ({
+    ...old,
+    posts: [...old.posts, row],
+  }));
 
   res.json(row);
 }

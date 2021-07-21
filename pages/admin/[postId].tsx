@@ -1,43 +1,61 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+
 import { Layout } from '../../src/components/layout';
 import usePost from '../../src/hooks/usePost';
 import useSavePost from '../../src/hooks/useSavePost';
 import useDeletePost from '../../src/hooks/useDeletePost';
 import { Loader } from '../../src/components/styled';
 import { PostForm, PostFormState } from '../../src/components/post-form';
+import { Post } from '../../src/api/types';
+import { getFirstInstanceOfQuery } from '../../src/utils/url-query';
 
 const AdminPost: FC = () => {
   const { query, push } = useRouter();
-  const postId = Array.isArray(query.postId) ? query.postId[0] : query.postId;
-  const postQuery = usePost(postId ?? '');
-  const [savePost, savePostInfo] = useSavePost();
-  const [deletePost, deletePostInfo] = useDeletePost();
+  const postId = getFirstInstanceOfQuery(query.postId);
+  const postQuery = usePost(postId);
+  const {
+    isLoading: savePostLoading,
+    isError: savePostError,
+    isSuccess: savePostSuccess,
+    mutate: savePost,
+  } = useSavePost();
+  const {
+    isLoading: deletePostLoading,
+    isError: deletePostError,
+    isSuccess: deletePostSuccess,
+    mutate: deletePost,
+  } = useDeletePost();
 
-  const onSubmit = async (values: PostFormState) => {
-    await savePost(values);
-    postQuery.refetch();
+  const onSubmit = async (post: PostFormState) => {
+    if (!post.id) {
+      console.error('save post was submitted with data with not postId');
+      return;
+    }
+
+    await savePost(post as Post);
   };
 
   const getSubmitButtonText = () => {
-    if (savePostInfo.isLoading) return 'Saving...';
-    if (savePostInfo.isError) return 'Error!';
-    if (savePostInfo.isSuccess) return 'Saved!';
+    if (savePostLoading) return 'Saving...';
+    if (savePostError) return 'Error!';
+    if (savePostSuccess) return 'Saved!';
 
     return 'Save Post';
   };
 
   const getDeleteButtonText = () => {
-    if (deletePostInfo.isLoading) return 'Deleting...';
-    if (deletePostInfo.isError) return 'Error!';
-    if (deletePostInfo.isSuccess) return 'Deleted!';
+    if (deletePostLoading) return 'Deleting...';
+    if (deletePostError) return 'Error!';
+    if (deletePostSuccess) return 'Deleted!';
 
     return 'Delete Post';
   };
 
   const onDelete = async () => {
-    await deletePost(query.postId);
+    const postId = getFirstInstanceOfQuery(query.postId);
+    await deletePost(postId);
     push('/admin');
   };
 
@@ -62,7 +80,7 @@ const AdminPost: FC = () => {
             </Link>
           </p>
           <PostForm
-            loading={deletePostInfo.isLoading}
+            loading={deletePostLoading}
             initialValues={postQuery.data}
             onSubmit={onSubmit}
             submitText={getSubmitButtonText()}
