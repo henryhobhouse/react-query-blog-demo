@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { updatePostById } from '../api/posts';
 
 export default function useSavePost() {
@@ -7,10 +6,10 @@ export default function useSavePost() {
     isIdle: true,
   });
 
-  const mutate = React.useCallback(async (values) => {
+  const mutate = React.useCallback(async (postId) => {
     setState({ isLoading: true });
     try {
-      const { data } = await updatePostById(values);
+      const { data } = await updatePostById(postId);
       setState({ isSuccess: true, data });
     } catch (error) {
       setState({ isError: true, error });

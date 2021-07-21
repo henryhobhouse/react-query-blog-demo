@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+
 import { deletePostById } from '../api/posts';
 
 export default function useDeletePost() {
@@ -10,7 +10,7 @@ export default function useDeletePost() {
   const mutate = React.useCallback(async (postId) => {
     setState({ isLoading: true });
     try {
-      const { data } = await updatePosts(values);
+      const { data } = await deletePostById(postId);
       setState({ isSuccess: true });
     } catch (error) {
       setState({ isError: true, error });
