@@ -1,9 +1,9 @@
 import { useMutation } from 'react-query';
-import { queryClient } from '../../pages/_app';
 import { createNewPost } from '../api/posts';
 import { QueryKey } from '../api/query-keys';
 
 import { Post } from '../api/types';
+import { queryClient } from '../components/query-cache-manager';
 
 export default function useCreatePost() {
   return useMutation<Post, Error, Omit<Post, 'id'>>(

@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
-import { queryClient } from '../../pages/_app';
 
 import { getAllPosts } from '../api/posts';
 import { QueryKey } from '../api/query-keys';
 import { Post } from '../api/types';
+import { queryClient } from '../components/query-cache-manager';
 
 export const prefetchPosts = () => {
   const posts = queryClient.getQueryData(QueryKey.posts);

@@ -2,8 +2,8 @@ import { useMutation } from 'react-query';
 
 import { updatePostById } from '../api/posts';
 import { Post } from '../api/types';
-import { queryClient } from '../../pages/_app';
 import { QueryKey } from '../api/query-keys';
+import { queryClient } from '../components/query-cache-manager';
 
 export default function useSavePost() {
   return useMutation<Post, Error, Post>((post) => updatePostById(post), {
