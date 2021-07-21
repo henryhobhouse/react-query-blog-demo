@@ -1,6 +1,7 @@
 import { useMutation } from 'react-query';
 import { queryClient } from '../../pages/_app';
 import { createNewPost } from '../api/posts';
+import { QueryKey } from '../api/query-keys';
 
 import { Post } from '../api/types';
 
@@ -10,13 +11,15 @@ export default function useCreatePost() {
     {
       onMutate: async (newPostWithoutId) => {
         // Cancel any outgoing re-fetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries('posts');
+        await queryClient.cancelQueries(QueryKey.allPosts);
 
         // Snapshot the previous value
-        const previousPosts = queryClient.getQueryData<Post[]>('posts');
+        const previousPosts = queryClient.getQueryData<Post[]>(
+          QueryKey.allPosts
+        );
 
         // add the newly created post to the posts list in the cache
-        queryClient.setQueryData<Post[]>('posts', (oldPosts) => [
+        queryClient.setQueryData<Post[]>(QueryKey.allPosts, (oldPosts) => [
           ...(oldPosts ?? []),
           { id: Date.now().toString(), isPreview: true, ...newPostWithoutId },
         ]);
@@ -25,12 +28,15 @@ export default function useCreatePost() {
       },
       onError: (_err, _newPost, context: any) => {
         if (context?.previousPosts) {
-          queryClient.setQueryData<Post[]>('posts', context.previousPosts);
+          queryClient.setQueryData<Post[]>(
+            QueryKey.allPosts,
+            context.previousPosts
+          );
         }
       },
       onSettled: () => {
         // Always refetch after error or success. In this case important as the ID of the new post in the cache will be incorrect
-        queryClient.invalidateQueries('posts');
+        queryClient.refetchQueries(QueryKey.allPosts);
       },
     }
   );

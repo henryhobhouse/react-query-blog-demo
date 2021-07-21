@@ -12,9 +12,7 @@ const Admin: FC = () => {
   const { isError, isSuccess, isLoading, mutate: createPost } = useCreatePost();
 
   const onSubmit = async (values: PostFormState) => {
-    await createPost(values, {
-      onSuccess: () => postsQuery.refetch(),
-    });
+    await createPost(values);
   };
 
   const getSubmitText = () => {
@@ -42,11 +40,18 @@ const Admin: FC = () => {
                   <li key={post.id}>
                     <Link
                       href={{
-                        pathname: `/admin/[postId]`,
+                        pathname: post.isPreview ? '/admin' : '/admin/[postId]',
                         query: { postId: post.id },
                       }}
                     >
-                      <a>{post.title}</a>
+                      <a
+                        style={{
+                          color: post.isPreview ? 'grey' : '#41adff',
+                          cursor: post.isPreview ? 'progress' : 'pointer',
+                        }}
+                      >
+                        {post.title}
+                      </a>
                     </Link>
                   </li>
                 ))}
