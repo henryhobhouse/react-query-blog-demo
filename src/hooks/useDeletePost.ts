@@ -1,4 +1,5 @@
 import { useMutation } from 'react-query';
+import { queryClient } from '../../pages/_app';
 
 import { deletePostById } from '../api/posts';
 import { QueryKey } from '../api/query-keys';
