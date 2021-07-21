@@ -16,6 +16,11 @@ const Sidebar: FC = () => (
           <a>Exercises</a>
         </Link>
       </li>
+      <li>
+        <Link href="/exercises-demand">
+          <a>On demand exercises</a>
+        </Link>
+      </li>
       <hr />
       <li>
         <Link href="/admin">
