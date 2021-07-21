@@ -40,18 +40,11 @@ const Admin: FC = () => {
                   <li key={post.id}>
                     <Link
                       href={{
-                        pathname: post.isPreview ? '/admin' : '/admin/[postId]',
+                        pathname: '/admin/[postId]',
                         query: { postId: post.id },
                       }}
                     >
-                      <a
-                        style={{
-                          color: post.isPreview ? 'grey' : '#41adff',
-                          cursor: post.isPreview ? 'progress' : 'pointer',
-                        }}
-                      >
-                        {post.title}
-                      </a>
+                      <a>{post.title}</a>
                     </Link>
                   </li>
                 ))}
