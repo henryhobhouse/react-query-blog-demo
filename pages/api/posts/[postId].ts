@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import db from '../../../db';
 import { Post } from '../../../src/api/types';
-import { sleep } from '../../../utils';
+import { sleep } from '../../../src/utils/async';
 
 const deleteFailureRate = 0;
 

@@ -6,6 +6,7 @@ import { PostForm, PostFormState } from '../../src/components/post-form';
 import usePosts from '../../src/hooks/usePosts';
 import useCreatePost from '../../src/hooks/useCreatePost';
 import { Post } from '../../src/api/types';
+import { sleep } from '../../src/utils/async';
 
 const Admin: FC = () => {
   const postsQuery = usePosts();

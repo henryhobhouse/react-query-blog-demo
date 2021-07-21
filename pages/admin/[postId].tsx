@@ -35,6 +35,7 @@ const AdminPost: FC = () => {
     }
 
     await savePost(post as Post);
+    postQuery.refetch();
   };
 
   const getSubmitButtonText = () => {
@@ -56,6 +57,7 @@ const AdminPost: FC = () => {
   const onDelete = async () => {
     const postId = getFirstInstanceOfQuery(query.postId);
     await deletePost(postId);
+    postQuery.refetch();
     push('/admin');
   };
 

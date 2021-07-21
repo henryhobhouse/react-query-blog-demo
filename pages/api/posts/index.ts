@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import shortid from 'shortid';
 import db from '../../../db';
 import { Post } from '../../../src/api/types';
-import { sleep } from '../../../utils';
+import { sleep } from '../../../src/utils/async';
 
 // allows you to simulate flakey API's
 const failureRate = 0;
@@ -68,7 +68,7 @@ export default async function PostsApi(
       return await GET(req, res);
     }
     if (req.method === 'POST') {
-      return await POST(req, res);
+      await POST(req, res);
     }
   } catch (err) {
     // eslint-disable-next-line no-console
