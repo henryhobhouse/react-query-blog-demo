@@ -9,19 +9,19 @@ export default function useSavePost() {
   return useMutation<Post, Error, Post>((post) => updatePostById(post), {
     onMutate: async (updatedPost) => {
       // Cancel any outgoing re-fetches (so they don't overwrite our optimistic update)
-      await queryClient.cancelQueries(QueryKey.allPosts);
+      await queryClient.cancelQueries(QueryKey.posts);
 
       // Snapshot the previous value
-      const previousPosts = queryClient.getQueryData(QueryKey.allPosts);
+      const previousPosts = queryClient.getQueryData(QueryKey.posts);
       const previousPost = queryClient.getQueryData([
-        QueryKey.allPosts,
+        QueryKey.posts,
         updatedPost.id,
       ]);
 
       // handle all posts (as data is not normalised) within cache
       // NOTE: make an update then go to the exercises page. Notice the issue. Something to consider
       // when making optimistic updates!!
-      queryClient.setQueryData<Post[]>(QueryKey.allPosts, (oldPosts) => {
+      queryClient.setQueryData<Post[]>(QueryKey.posts, (oldPosts) => {
         if (oldPosts) {
           const indexOfUpdatedPost = oldPosts.findIndex(
             (post) => post.id === updatedPost.id
@@ -33,29 +33,26 @@ export default function useSavePost() {
       });
 
       // handle individual post update within cache
-      queryClient.setQueryData(
-        [QueryKey.allPosts, updatedPost.id],
-        updatedPost
-      );
+      queryClient.setQueryData([QueryKey.posts, updatedPost.id], updatedPost);
 
       // Return a context object with the snap shotted value
       return { previousPosts, previousPost };
     },
     onError: (_err, _postId, { previousPosts, previousPost }: any) => {
       if (previousPosts) {
-        queryClient.setQueryData(QueryKey.allPosts, previousPosts);
+        queryClient.setQueryData(QueryKey.posts, previousPosts);
       }
       if (previousPost) {
         queryClient.setQueryData(
-          [QueryKey.allPosts, previousPost.id],
+          [QueryKey.posts, previousPost.id],
           previousPost
         );
       }
     },
     onSettled: (_updatedPost, _error, args) => {
       // have all affected queries refetch silently in the background on update.
-      queryClient.invalidateQueries(QueryKey.allPosts);
-      queryClient.invalidateQueries([QueryKey.allPosts, args.id]);
+      queryClient.invalidateQueries(QueryKey.posts);
+      queryClient.invalidateQueries([QueryKey.posts, args.id]);
     },
   });
 }

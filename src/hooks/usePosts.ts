@@ -5,5 +5,5 @@ import { QueryKey } from '../api/query-keys';
 import { Post } from '../api/types';
 
 export default function usePosts() {
-  return useQuery<Post[], Error>(QueryKey.allPosts, getAllPosts);
+  return useQuery<Post[], Error>(QueryKey.posts, getAllPosts);
 }

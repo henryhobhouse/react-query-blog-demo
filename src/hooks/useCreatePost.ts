@@ -11,15 +11,13 @@ export default function useCreatePost() {
     {
       onMutate: async (newPostWithoutId) => {
         // Cancel any outgoing re-fetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(QueryKey.allPosts);
+        await queryClient.cancelQueries(QueryKey.posts);
 
         // Snapshot the previous value
-        const previousPosts = queryClient.getQueryData<Post[]>(
-          QueryKey.allPosts
-        );
+        const previousPosts = queryClient.getQueryData<Post[]>(QueryKey.posts);
 
         // add the newly created post to the posts list in the cache
-        queryClient.setQueryData<Post[]>(QueryKey.allPosts, (oldPosts) => [
+        queryClient.setQueryData<Post[]>(QueryKey.posts, (oldPosts) => [
           ...(oldPosts ?? []),
           { id: Date.now().toString(), isPreview: true, ...newPostWithoutId },
         ]);
@@ -29,14 +27,14 @@ export default function useCreatePost() {
       onError: (_err, _newPost, context: any) => {
         if (context?.previousPosts) {
           queryClient.setQueryData<Post[]>(
-            QueryKey.allPosts,
+            QueryKey.posts,
             context.previousPosts
           );
         }
       },
       onSettled: () => {
         // Always refetch after error or success. In this case important as the ID of the new post in the cache will be incorrect
-        queryClient.refetchQueries(QueryKey.allPosts);
+        queryClient.refetchQueries(QueryKey.posts);
       },
     }
   );
