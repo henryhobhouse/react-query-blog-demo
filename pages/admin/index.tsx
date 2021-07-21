@@ -6,6 +6,7 @@ import { PostForm, PostFormState } from '../../src/components/post-form';
 import usePosts from '../../src/hooks/usePosts';
 import useCreatePost from '../../src/hooks/useCreatePost';
 import { Post } from '../../src/api/types';
+import { prefetchPost } from '../../src/hooks/usePost';
 
 const Admin: FC = () => {
   const postsQuery = usePosts();
@@ -37,7 +38,7 @@ const Admin: FC = () => {
               <h3>Posts</h3>
               <ul>
                 {postsQuery.data.map((post: Post) => (
-                  <li key={post.id}>
+                  <li key={post.id} onMouseEnter={() => prefetchPost(post.id)}>
                     <Link
                       href={{
                         pathname: '/admin/[postId]',

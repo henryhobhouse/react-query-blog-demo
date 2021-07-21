@@ -1,8 +1,18 @@
 import { useQuery } from 'react-query';
+import { queryClient } from '../../pages/_app';
 
 import { getPostById } from '../api/posts';
 import { QueryKey } from '../api/query-keys';
 import { Post } from '../api/types';
+
+export const prefetchPost = (postId: string) => {
+  const post = queryClient.getQueryData([QueryKey.posts, postId]);
+  if (!post) {
+    queryClient.prefetchQuery([QueryKey.posts, postId], () =>
+      getPostById(postId)
+    );
+  }
+};
 
 export default function usePost(postId: string) {
   return useQuery<Post, Error>([QueryKey.posts, postId], () =>

@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { Post } from '../../src/api/types';
 import { Layout } from '../../src/components/layout';
 import { Loader, PostStyles } from '../../src/components/styled';
+import { prefetchPost } from '../../src/hooks/usePost';
 import usePosts from '../../src/hooks/usePosts';
 
 const ExercisePosts: FC = () => {
@@ -38,7 +39,7 @@ const ExercisePosts: FC = () => {
                 key={post.id}
                 passHref
               >
-                <PostStyles>
+                <PostStyles onMouseEnter={() => prefetchPost(post.id)}>
                   <h3>{post.title}</h3>
                   <p dangerouslySetInnerHTML={{ __html: post.body }} />
                 </PostStyles>

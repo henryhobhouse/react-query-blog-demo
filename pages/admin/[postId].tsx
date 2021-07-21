@@ -10,6 +10,8 @@ import { Loader } from '../../src/components/styled';
 import { PostForm, PostFormState } from '../../src/components/post-form';
 import { Post } from '../../src/api/types';
 import { getFirstInstanceOfQuery } from '../../src/utils/url-query';
+import { useEffect } from 'react';
+import { prefetchPosts } from '../../src/hooks/usePosts';
 
 const AdminPost: FC = () => {
   const { query, push } = useRouter();
@@ -27,6 +29,10 @@ const AdminPost: FC = () => {
     isSuccess: deletePostSuccess,
     mutate: deletePost,
   } = useDeletePost();
+
+  useEffect(() => {
+    prefetchPosts();
+  }, []);
 
   const onSubmit = async (post: PostFormState) => {
     if (!post.id) {
